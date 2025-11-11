@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API_WebhookReceiver_Bling", "API_WebhookReceiver_Bling\API_WebhookReceiver_Bling.csproj", "{A9FCE1CC-00EA-48DF-A7A6-ABBE555DBFCB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9FCE1CC-00EA-48DF-A7A6-ABBE555DBFCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9FCE1CC-00EA-48DF-A7A6-ABBE555DBFCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9FCE1CC-00EA-48DF-A7A6-ABBE555DBFCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9FCE1CC-00EA-48DF-A7A6-ABBE555DBFCB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {58687B88-0791-47A6-8EF1-BB2ED6DA5B9F}
+	EndGlobalSection
+EndGlobal

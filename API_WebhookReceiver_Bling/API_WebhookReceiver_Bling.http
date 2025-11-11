@@ -1,0 +1,6 @@
+@API_WebhookReceiver_Bling_HostAddress = http://localhost:5179
+
+GET {{API_WebhookReceiver_Bling_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
