@@ -11,12 +11,12 @@ namespace API_WebhookReceiver_Bling.Controllers
     [Route("webhook")]
     public class WebhookRecieverController : ControllerBase
     {
-        private const string CLIENT_SECRET = "SEU_CLIENT_SECRET_AQUI"; // coloque o segredo do seu app no Bling aqui
+        private const string CLIENT_SECRET = "SEU_CLIENT_SECRET_AQUI"; 
 
         [HttpPost]
         public async Task<IActionResult> ReceiveWebhook()
         {
-            // 1. Ler o RAW body
+           
             Request.EnableBuffering(); // permite ler o body mais de uma vez
             string rawBody;
             using (var reader = new StreamReader(Request.Body, Encoding.UTF8, leaveOpen: true))
@@ -26,20 +26,36 @@ namespace API_WebhookReceiver_Bling.Controllers
             }
 
             // 2. Obter o header enviado pelo Bling
-            if (!Request.Headers.TryGetValue("X-Bling-Signature-256", out var signatureHeader))
-                return Unauthorized("Cabeçalho de assinatura ausente.");
+            //if (!Request.Headers.TryGetValue("X-Bling-Signature-256", out var signatureHeader))
+            //    return Unauthorized("Cabeçalho de assinatura ausente.");
 
-            var signatureReceived = signatureHeader.ToString().Replace("sha256=", "");
+            //var signatureReceived = signatureHeader.ToString().Replace("sha256=", "");
 
             // 3. Calcular o hash local
             var signatureGenerated = GenerateHmacSha256(rawBody, CLIENT_SECRET);
 
             // 4. Comparar (verifica se a requisição é confiável)
-            if (!signatureGenerated.Equals(signatureReceived, StringComparison.OrdinalIgnoreCase))
-                return Unauthorized("Assinatura inválida.");
+            //if (!signatureGenerated.Equals(signatureReceived, StringComparison.OrdinalIgnoreCase))
+            //    return Unauthorized("Assinatura inválida.");
 
-            // 5. Agora sim podemos desserializar para o modelo
+
+            //var payload = JsonSerializer.Deserialize<WebhookMessage>(rawBody);
             var payload = JsonSerializer.Deserialize<WebhookMessage>(rawBody);
+
+            // transforma o JsonElement Data em string "fixa"
+            if (payload.Data.ValueKind != JsonValueKind.Undefined)
+            {
+                payload = new WebhookMessage
+                {
+                    EventId = payload.EventId,
+                    Date = payload.Date,
+                    Version = payload.Version,
+                    Event = payload.Event,
+                    CompanyId = payload.CompanyId,
+                    Data = JsonDocument.Parse(payload.Data.GetRawText()).RootElement
+                };
+            }
+
 
             // 6. Processa a mensagem (se quiser enfileirar, logar, etc.)
             Console.WriteLine($"Webhook recebido: Evento={payload.Event} Empresa={payload.CompanyId}");
